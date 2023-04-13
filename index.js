@@ -25,12 +25,12 @@ let all_users = [];
 io.on("connection", (socket) => {
   console.log("user connected -> ", socket.id);
 
-  socket.emit("hello", "world");
-
   all_users.push(socket.id);
 
-  socket.on("hello11", (arg) => {
-    console.log(arg); // world
+  socket.on("setStatus", (setStatueMsg) => {
+    console.log(setStatueMsg); // world
+
+    socket.emit("pushStatus", setStatueMsg);
   });
 
   console.log("all users -> ", all_users);
