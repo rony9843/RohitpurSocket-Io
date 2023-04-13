@@ -23,25 +23,18 @@ app.get("/", (req, res) => {
 let all_users = [];
 
 io.on("connection", (socket) => {
-  console.log("user connected -> ", socket.id);
-
   all_users.push(socket.id);
 
   socket.on("setStatus", (setStatueMsg) => {
-    console.log(setStatueMsg); // world
-    socket.emit("pushStatus", setStatueMsg);
-    socket.broadcast.emit("broadcast", "broadcast2222");
+    socket.broadcast.emit("broadcast", setStatueMsg);
   });
 
-  socket.emit("pushStatus", "setStatueMsg");
-  socket.broadcast.emit("broadcast", "broadcast");
+  // socket.emit("pushStatus", "setStatueMsg");
 
   console.log("all users -> ", all_users);
 
   // disconnect
   socket.on("disconnect", () => {
-    console.log("user disconnected -> ", socket.id);
-
     all_users.pop(socket.id);
     console.log("all users -> ", all_users);
   });
