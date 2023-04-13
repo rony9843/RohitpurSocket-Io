@@ -25,15 +25,19 @@ let all_users = [];
 io.on("connection", (socket) => {
   console.log("user connected -> ", socket.id);
 
+  socket.emit("hello", "world");
+
   all_users.push(socket.id);
+
+  socket.on("hello11", (arg) => {
+    console.log(arg); // world
+  });
 
   console.log("all users -> ", all_users);
 
   // disconnect
   socket.on("disconnect", () => {
     console.log("user disconnected -> ", socket.id);
-
-    socket.emit("hello", "world");
 
     all_users.pop(socket.id);
     console.log("all users -> ", all_users);
