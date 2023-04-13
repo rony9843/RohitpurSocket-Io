@@ -30,9 +30,11 @@ io.on("connection", (socket) => {
   socket.on("setStatus", (setStatueMsg) => {
     console.log(setStatueMsg); // world
     socket.emit("pushStatus", setStatueMsg);
+    socket.broadcast.emit("broadcast", "broadcast2222");
   });
 
   socket.emit("pushStatus", "setStatueMsg");
+  socket.broadcast.emit("broadcast", "broadcast");
 
   console.log("all users -> ", all_users);
 
