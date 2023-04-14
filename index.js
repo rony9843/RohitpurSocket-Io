@@ -25,6 +25,8 @@ let all_users = [];
 io.on("connection", (socket) => {
   // received user info
   socket.on("userInfo", (userInfo) => {
+    console.log("userInfo -> ", userInfo);
+
     all_users.push({ id: socket.id, info: userInfo });
   });
 
