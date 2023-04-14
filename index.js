@@ -27,7 +27,7 @@ io.on("connection", (socket) => {
   socket.on("userInfo", (userInfo) => {
     console.log("userInfo -> ", userInfo);
 
-    all_users.push({ id: socket.id, info: userInfo });
+    all_users = [...all_users, { id: socket.id, info: userInfo }];
   });
 
   socket.on("setStatus", (setStatueMsg) => {
