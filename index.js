@@ -40,7 +40,7 @@ io.on("connection", (socket) => {
 
   // disconnect
   socket.on("disconnect", () => {
-    all_users = all_users.map((users) => users.id !== socket.id);
+    all_users = all_users.filter((users) => users.id !== socket.id);
     console.log("all users -> ", all_users);
   });
 });
