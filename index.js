@@ -28,6 +28,8 @@ io.on("connection", (socket) => {
     console.log("userInfo -> ", userInfo);
 
     all_users = [...all_users, { id: socket.id, info: userInfo }];
+
+    console.log("all users -> ", all_users);
   });
 
   socket.on("setStatus", (setStatueMsg) => {
@@ -35,8 +37,6 @@ io.on("connection", (socket) => {
   });
 
   // socket.emit("pushStatus", "setStatueMsg");
-
-  console.log("all users -> ", all_users);
 
   // disconnect
   socket.on("disconnect", () => {
