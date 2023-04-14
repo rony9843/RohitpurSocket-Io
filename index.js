@@ -23,7 +23,10 @@ app.get("/", (req, res) => {
 let all_users = [];
 
 io.on("connection", (socket) => {
-  all_users.push(socket.id);
+  // received user info
+  socket.on("userInfo", (userInfo) => {
+    all_users.push({ id: socket.id, info: userInfo });
+  });
 
   socket.on("setStatus", (setStatueMsg) => {
     socket.broadcast.emit("broadcast", setStatueMsg);
@@ -35,7 +38,7 @@ io.on("connection", (socket) => {
 
   // disconnect
   socket.on("disconnect", () => {
-    all_users.pop(socket.id);
+    all_users = all_users.map((users) => users.id !== socket.id);
     console.log("all users -> ", all_users);
   });
 });
