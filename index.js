@@ -22,6 +22,8 @@ app.get("/", (req, res) => {
 
 let all_users = [];
 
+let all_Status = [];
+
 io.on("connection", (socket) => {
   // received user info
   socket.on("userInfo", (userInfo) => {
@@ -33,7 +35,17 @@ io.on("connection", (socket) => {
   });
 
   socket.on("setStatus", (setStatueMsg) => {
-    socket.broadcast.emit("broadcast", setStatueMsg);
+    console.log("this is one status -> ", setStatueMsg);
+
+    all_Status = [
+      ...all_Status,
+      { statusId: setStatueMsg.id, status: setStatueMsg.status },
+    ];
+
+    console.log("this is one status -> ", all_Status);
+
+    socket.broadcast.emit("broadcast", all_Status);
+    // socket.broadcast.emit("getAllStatus", all_Status);
   });
 
   // socket.emit("pushStatus", "setStatueMsg");
